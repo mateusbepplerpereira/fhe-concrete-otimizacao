@@ -1,0 +1,21 @@
+# ambiente
+.venv/
+tools/
+__pycache__/
+*.pyc
+.DS_Store
+
+# código de terceiros e builds (gerados pelos scripts)
+vendor/
+build/
+target/
+
+# editor
+.vscode/
+.idea/
+
+# dumps de depuração do Concrete
+.artifacts/
+
+# artefatos regeneráveis dos experimentos
+results/*/cases/

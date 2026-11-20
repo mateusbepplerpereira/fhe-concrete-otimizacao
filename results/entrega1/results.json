@@ -1,0 +1,2336 @@
+{
+  "meta": {
+    "tag": "entrega1",
+    "updated_at": "2026-11-19T12:03:31",
+    "commit": "43c58cd-modificado",
+    "machine": "arm64 26.6.2",
+    "omp_threads": "8",
+    "n_lat": 0,
+    "n_acc": 0,
+    "versions": {
+      "python": "3.12.13",
+      "concrete.ml": "1.9.0",
+      "openfhe": "1.6.1.0",
+      "sklearn": "1.5.0",
+      "torch": "2.3.1"
+    }
+  },
+  "cases": [
+    {
+      "scenario": "linear/logreg_cancer",
+      "family": "linear",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "logreg"
+      },
+      "description": "Regress\u00e3o log\u00edstica bin\u00e1ria, 30 atributos",
+      "approach": "concrete_ml",
+      "approach_description": "Concrete ML, modelos prontos com os padr\u00f5es da biblioteca (NN: NeuralNetClassifier com QAT)",
+      "status": "ok",
+      "wall_s": 6.196222500060685,
+      "acc_clear": 0.9824561403508771,
+      "acc_clear_mode": "quantizado (fhe=disable)",
+      "acc_fhe": 0.9824561403508771,
+      "acc_fhe_mode": "simula\u00e7\u00e3o FHE (fhe=simulate)",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "simula\u00e7\u00e3o",
+      "lat_mean_s": 0.018740049796178937,
+      "lat_std_s": 0.00028795719832986884,
+      "lat_samples_s": [
+        0.01883774995803833,
+        0.01862108299974352,
+        0.019003499997779727,
+        0.01900116598699242,
+        0.018236750038340688
+      ],
+      "n_lat": 5,
+      "train_s": 0.04710600001271814,
+      "compile_s": 0.16130029095802456,
+      "keygen_s": 8.124997839331627e-05,
+      "stats": {
+        "pbs": 0,
+        "complexity": 1377.0,
+        "max_bit_width": 19,
+        "bsk_MB": 0.0,
+        "ksk_MB": 0.0
+      },
+      "config": "{'C': 1.0, 'class_weight': None, 'dual': False, 'fit_intercept': True, 'intercept_scaling': 1, 'l1_ratio': None, 'max_iter': 100, 'multi_class': 'auto', 'n_bits': 8, 'n_jobs': None, 'penalty': 'l2', 'random_state': None, 'solver': 'lbfgs', 'tol': 0.0001, 'verbose': 0, 'warm_start': False}",
+      "finished_at": "2026-11-19T11:21:06"
+    },
+    {
+      "scenario": "linear/logreg_cancer",
+      "family": "linear",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "logreg"
+      },
+      "description": "Regress\u00e3o log\u00edstica bin\u00e1ria, 30 atributos",
+      "approach": "concrete_ml_ptq",
+      "approach_description": "Concrete ML, MLP PyTorch com PTQ 6 bits + arredondamento aproximado + global_p_error=0,1 (melhor configura\u00e7\u00e3o do experimento 04)",
+      "status": "nao_suportado",
+      "reason": "apenas redes neurais",
+      "finished_at": "2026-11-19T11:21:08"
+    },
+    {
+      "scenario": "linear/logreg_cancer",
+      "family": "linear",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "logreg"
+      },
+      "description": "Regress\u00e3o log\u00edstica bin\u00e1ria, 30 atributos",
+      "approach": "fheopt_diagonal",
+      "approach_description": "CKKS, m\u00e9todo diagonal cl\u00e1ssico (refer\u00eancia, sem passes do motor)",
+      "status": "ok",
+      "wall_s": 3.504847874981351,
+      "acc_clear": 0.9824561403508771,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9824561403508771,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 1.9679848861642313e-09,
+      "lat_mean_s": 0.025320024834945797,
+      "lat_std_s": 0.0004514839068342394,
+      "lat_samples_s": [
+        0.025584208080545068,
+        0.02570591599214822,
+        0.025341166998259723,
+        0.024448333075270057,
+        0.02552050002850592
+      ],
+      "n_lat": 5,
+      "train_s": 0.05417675001081079,
+      "compile_s": 0.0011147919576615095,
+      "keygen_s": 0.020922333002090454,
+      "encode_s": 0.0008547080215066671,
+      "stats": {
+        "plan": "diagonal",
+        "depth": 1,
+        "rotations_per_inference": 5,
+        "distinct_rotation_keys": 5,
+        "ops": {
+          "mul_pt": 2,
+          "rot": 5,
+          "add": 5,
+          "add_pt": 1
+        },
+        "slots": 64,
+        "ring_dim": 16384,
+        "rot_keys": 5
+      },
+      "finished_at": "2026-11-19T11:21:11"
+    },
+    {
+      "scenario": "linear/logreg_cancer",
+      "family": "linear",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "logreg"
+      },
+      "description": "Regress\u00e3o log\u00edstica bin\u00e1ria, 30 atributos",
+      "approach": "fheopt",
+      "approach_description": "CKKS, motor fheopt com os passes atuais (layout replicado + rotate-and-sum)",
+      "status": "ok",
+      "wall_s": 3.2416782920481637,
+      "acc_clear": 0.9824561403508771,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9824561403508771,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 3.5630423056431937e-09,
+      "lat_mean_s": 0.024693058198317887,
+      "lat_std_s": 0.0013876236890660331,
+      "lat_samples_s": [
+        0.022848958964459598,
+        0.02415716601535678,
+        0.02692191698588431,
+        0.02407566597685218,
+        0.025461583049036562
+      ],
+      "n_lat": 5,
+      "train_s": 0.0529004589188844,
+      "compile_s": 0.0013367499923333526,
+      "keygen_s": 0.020291458000428975,
+      "encode_s": 0.0006285830168053508,
+      "stats": {
+        "plan": "replicated",
+        "depth": 1,
+        "rotations_per_inference": 5,
+        "distinct_rotation_keys": 5,
+        "ops": {
+          "mul_pt": 1,
+          "rot": 5,
+          "add": 5,
+          "add_pt": 1
+        },
+        "slots": 64,
+        "ring_dim": 16384,
+        "rot_keys": 5
+      },
+      "finished_at": "2026-11-19T11:21:15"
+    },
+    {
+      "scenario": "linear/logreg_digits",
+      "family": "linear",
+      "dataset": "digits",
+      "model": {
+        "kind": "logreg"
+      },
+      "description": "Regress\u00e3o log\u00edstica multiclasse (10), 64 atributos",
+      "approach": "concrete_ml",
+      "approach_description": "Concrete ML, modelos prontos com os padr\u00f5es da biblioteca (NN: NeuralNetClassifier com QAT)",
+      "status": "ok",
+      "wall_s": 9.585922333062626,
+      "acc_clear": 0.9611111111111111,
+      "acc_clear_mode": "quantizado (fhe=disable)",
+      "acc_fhe": 0.9611111111111111,
+      "acc_fhe_mode": "simula\u00e7\u00e3o FHE (fhe=simulate)",
+      "n_acc": 360,
+      "fidelity": 1.0,
+      "fidelity_ref": "simula\u00e7\u00e3o",
+      "lat_mean_s": 0.02112632484640926,
+      "lat_std_s": 0.000269298230333774,
+      "lat_samples_s": [
+        0.021089041023515165,
+        0.020739583065733314,
+        0.021539458073675632,
+        0.021274792030453682,
+        0.020988750038668513
+      ],
+      "n_lat": 5,
+      "train_s": 0.052080709021538496,
+      "compile_s": 0.2746048340341076,
+      "keygen_s": 7.666600868105888e-05,
+      "stats": {
+        "pbs": 0,
+        "complexity": 1315.0,
+        "max_bit_width": 18,
+        "bsk_MB": 0.0,
+        "ksk_MB": 0.0
+      },
+      "config": "{'C': 1.0, 'class_weight': None, 'dual': False, 'fit_intercept': True, 'intercept_scaling': 1, 'l1_ratio': None, 'max_iter': 100, 'multi_class': 'auto', 'n_bits': 8, 'n_jobs': None, 'penalty': 'l2', 'random_state': None, 'solver': 'lbfgs', 'tol': 0.0001, 'verbose': 0, 'warm_start': False}",
+      "finished_at": "2026-11-19T11:21:24"
+    },
+    {
+      "scenario": "linear/logreg_digits",
+      "family": "linear",
+      "dataset": "digits",
+      "model": {
+        "kind": "logreg"
+      },
+      "description": "Regress\u00e3o log\u00edstica multiclasse (10), 64 atributos",
+      "approach": "concrete_ml_ptq",
+      "approach_description": "Concrete ML, MLP PyTorch com PTQ 6 bits + arredondamento aproximado + global_p_error=0,1 (melhor configura\u00e7\u00e3o do experimento 04)",
+      "status": "nao_suportado",
+      "reason": "apenas redes neurais",
+      "finished_at": "2026-11-19T11:21:24"
+    },
+    {
+      "scenario": "linear/logreg_digits",
+      "family": "linear",
+      "dataset": "digits",
+      "model": {
+        "kind": "logreg"
+      },
+      "description": "Regress\u00e3o log\u00edstica multiclasse (10), 64 atributos",
+      "approach": "fheopt_diagonal",
+      "approach_description": "CKKS, m\u00e9todo diagonal cl\u00e1ssico (refer\u00eancia, sem passes do motor)",
+      "status": "ok",
+      "wall_s": 22.176933874958195,
+      "acc_clear": 0.9638888888888889,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9638888888888889,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 360,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 4.12852685371945e-09,
+      "lat_mean_s": 0.06063334161881358,
+      "lat_std_s": 0.005559948476706949,
+      "lat_samples_s": [
+        0.07163287501316518,
+        0.05832362500950694,
+        0.05690412502735853,
+        0.05714562500361353,
+        0.05916045804042369
+      ],
+      "n_lat": 5,
+      "train_s": 0.05950137507170439,
+      "compile_s": 0.003162708948366344,
+      "keygen_s": 0.039340083952993155,
+      "encode_s": 0.004429709049873054,
+      "stats": {
+        "plan": "diagonal",
+        "depth": 1,
+        "rotations_per_inference": 17,
+        "distinct_rotation_keys": 17,
+        "ops": {
+          "mul_pt": 16,
+          "rot": 17,
+          "add": 17,
+          "add_pt": 1
+        },
+        "slots": 128,
+        "ring_dim": 16384,
+        "rot_keys": 17
+      },
+      "finished_at": "2026-11-19T11:21:46"
+    },
+    {
+      "scenario": "linear/logreg_digits",
+      "family": "linear",
+      "dataset": "digits",
+      "model": {
+        "kind": "logreg"
+      },
+      "description": "Regress\u00e3o log\u00edstica multiclasse (10), 64 atributos",
+      "approach": "fheopt",
+      "approach_description": "CKKS, motor fheopt com os passes atuais (layout replicado + rotate-and-sum)",
+      "status": "ok",
+      "wall_s": 8.613607916980982,
+      "acc_clear": 0.9638888888888889,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9638888888888889,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 360,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 1.2812831101660649e-08,
+      "lat_mean_s": 0.025535200024023652,
+      "lat_std_s": 0.0006375863824133677,
+      "lat_samples_s": [
+        0.025464375037699938,
+        0.025663667009212077,
+        0.026441583060659468,
+        0.025655208970420063,
+        0.024451166042126715
+      ],
+      "n_lat": 5,
+      "train_s": 0.058706791955046356,
+      "compile_s": 0.0024133339757099748,
+      "keygen_s": 0.02338166697882116,
+      "encode_s": 0.00079624995123595,
+      "stats": {
+        "plan": "replicated",
+        "depth": 1,
+        "rotations_per_inference": 6,
+        "distinct_rotation_keys": 6,
+        "ops": {
+          "mul_pt": 1,
+          "rot": 6,
+          "add": 6,
+          "add_pt": 1
+        },
+        "slots": 1024,
+        "ring_dim": 16384,
+        "rot_keys": 6
+      },
+      "finished_at": "2026-11-19T11:21:55"
+    },
+    {
+      "scenario": "linear/linsvc_cancer",
+      "family": "linear",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "linsvc"
+      },
+      "description": "SVM linear bin\u00e1rio, 30 atributos",
+      "approach": "concrete_ml",
+      "approach_description": "Concrete ML, modelos prontos com os padr\u00f5es da biblioteca (NN: NeuralNetClassifier com QAT)",
+      "status": "ok",
+      "wall_s": 8.53487820806913,
+      "acc_clear": 0.9649122807017544,
+      "acc_clear_mode": "quantizado (fhe=disable)",
+      "acc_fhe": 0.9649122807017544,
+      "acc_fhe_mode": "simula\u00e7\u00e3o FHE (fhe=simulate)",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "simula\u00e7\u00e3o",
+      "lat_mean_s": 0.017189074982888998,
+      "lat_std_s": 0.00021061961011380897,
+      "lat_samples_s": [
+        0.017556542064994574,
+        0.01728533289860934,
+        0.017081541940569878,
+        0.017046374967321754,
+        0.016975583042949438
+      ],
+      "n_lat": 5,
+      "train_s": 0.03994175000116229,
+      "compile_s": 0.14646629197522998,
+      "keygen_s": 8.658308070152998e-05,
+      "stats": {
+        "pbs": 0,
+        "complexity": 1327.0,
+        "max_bit_width": 18,
+        "bsk_MB": 0.0,
+        "ksk_MB": 0.0
+      },
+      "config": "{'C': 1.0, 'class_weight': None, 'dual': True, 'fit_intercept': True, 'intercept_scaling': 1, 'loss': 'squared_hinge', 'max_iter': 1000, 'multi_class': 'ovr', 'n_bits': 8, 'penalty': 'l2', 'random_state': None, 'tol': 0.0001, 'verbose': 0}",
+      "finished_at": "2026-11-19T11:22:04"
+    },
+    {
+      "scenario": "linear/linsvc_cancer",
+      "family": "linear",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "linsvc"
+      },
+      "description": "SVM linear bin\u00e1rio, 30 atributos",
+      "approach": "concrete_ml_ptq",
+      "approach_description": "Concrete ML, MLP PyTorch com PTQ 6 bits + arredondamento aproximado + global_p_error=0,1 (melhor configura\u00e7\u00e3o do experimento 04)",
+      "status": "nao_suportado",
+      "reason": "apenas redes neurais",
+      "finished_at": "2026-11-19T11:22:04"
+    },
+    {
+      "scenario": "linear/linsvc_cancer",
+      "family": "linear",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "linsvc"
+      },
+      "description": "SVM linear bin\u00e1rio, 30 atributos",
+      "approach": "fheopt_diagonal",
+      "approach_description": "CKKS, m\u00e9todo diagonal cl\u00e1ssico (refer\u00eancia, sem passes do motor)",
+      "status": "ok",
+      "wall_s": 3.507858791970648,
+      "acc_clear": 0.9649122807017544,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9649122807017544,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 1.915863911960969e-09,
+      "lat_mean_s": 0.025330200023017824,
+      "lat_std_s": 0.0010876443146998847,
+      "lat_samples_s": [
+        0.026344957994297147,
+        0.025186917046085,
+        0.025761749944649637,
+        0.0260624170769006,
+        0.023294958053156734
+      ],
+      "n_lat": 5,
+      "train_s": 0.05179208400659263,
+      "compile_s": 0.0011508340248838067,
+      "keygen_s": 0.021982333972118795,
+      "encode_s": 0.0009737079963088036,
+      "stats": {
+        "plan": "diagonal",
+        "depth": 1,
+        "rotations_per_inference": 5,
+        "distinct_rotation_keys": 5,
+        "ops": {
+          "mul_pt": 2,
+          "rot": 5,
+          "add": 5,
+          "add_pt": 1
+        },
+        "slots": 64,
+        "ring_dim": 16384,
+        "rot_keys": 5
+      },
+      "finished_at": "2026-11-19T11:22:07"
+    },
+    {
+      "scenario": "linear/linsvc_cancer",
+      "family": "linear",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "linsvc"
+      },
+      "description": "SVM linear bin\u00e1rio, 30 atributos",
+      "approach": "fheopt",
+      "approach_description": "CKKS, motor fheopt com os passes atuais (layout replicado + rotate-and-sum)",
+      "status": "ok",
+      "wall_s": 3.383236667024903,
+      "acc_clear": 0.9649122807017544,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9649122807017544,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 2.4913067164789027e-09,
+      "lat_mean_s": 0.022361674974672497,
+      "lat_std_s": 0.00047323715763106325,
+      "lat_samples_s": [
+        0.0232412499608472,
+        0.022101541981101036,
+        0.022397166932933033,
+        0.02185712498612702,
+        0.022211291012354195
+      ],
+      "n_lat": 5,
+      "train_s": 0.0527115409495309,
+      "compile_s": 0.001325499964877963,
+      "keygen_s": 0.020863167010247707,
+      "encode_s": 0.0006675829645246267,
+      "stats": {
+        "plan": "replicated",
+        "depth": 1,
+        "rotations_per_inference": 5,
+        "distinct_rotation_keys": 5,
+        "ops": {
+          "mul_pt": 1,
+          "rot": 5,
+          "add": 5,
+          "add_pt": 1
+        },
+        "slots": 64,
+        "ring_dim": 16384,
+        "rot_keys": 5
+      },
+      "finished_at": "2026-11-19T11:22:10"
+    },
+    {
+      "scenario": "tree/dtree_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "dtree",
+        "max_depth": 5
+      },
+      "description": "\u00c1rvore de decis\u00e3o, profundidade 5",
+      "approach": "concrete_ml",
+      "approach_description": "Concrete ML, modelos prontos com os padr\u00f5es da biblioteca (NN: NeuralNetClassifier com QAT)",
+      "status": "ok",
+      "wall_s": 10.780877250013873,
+      "acc_clear": 0.9649122807017544,
+      "acc_clear_mode": "quantizado (fhe=disable)",
+      "acc_fhe": 0.9649122807017544,
+      "acc_fhe_mode": "simula\u00e7\u00e3o FHE (fhe=simulate)",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "simula\u00e7\u00e3o",
+      "lat_mean_s": 0.4183863499900326,
+      "lat_std_s": 0.05471434370649076,
+      "lat_samples_s": [
+        0.33595391700509936,
+        0.36945899995043874,
+        0.4597024579998106,
+        0.4664374580606818,
+        0.4603789169341326
+      ],
+      "n_lat": 5,
+      "train_s": 0.07785091700498015,
+      "compile_s": 0.6841012079967186,
+      "keygen_s": 0.9776720830705017,
+      "stats": {
+        "pbs": 136,
+        "complexity": 7649807401.0,
+        "max_bit_width": 8,
+        "bsk_MB": 800.109375,
+        "ksk_MB": 110.2578125
+      },
+      "config": "{'ccp_alpha': 0.0, 'class_weight': None, 'criterion': 'gini', 'max_depth': 5, 'max_features': None, 'max_leaf_nodes': None, 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0, 'monotonic_cst': None, 'n_bits': {'op_inputs': 6, 'op_leaves': 6}, 'random_state': 0, 'splitter': 'best'}",
+      "finished_at": "2026-11-19T11:22:21"
+    },
+    {
+      "scenario": "tree/dtree_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "dtree",
+        "max_depth": 5
+      },
+      "description": "\u00c1rvore de decis\u00e3o, profundidade 5",
+      "approach": "concrete_ml_ptq",
+      "approach_description": "Concrete ML, MLP PyTorch com PTQ 6 bits + arredondamento aproximado + global_p_error=0,1 (melhor configura\u00e7\u00e3o do experimento 04)",
+      "status": "nao_suportado",
+      "reason": "apenas redes neurais",
+      "finished_at": "2026-11-19T11:22:21"
+    },
+    {
+      "scenario": "tree/dtree_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "dtree",
+        "max_depth": 5
+      },
+      "description": "\u00c1rvore de decis\u00e3o, profundidade 5",
+      "approach": "fheopt_diagonal",
+      "approach_description": "CKKS, m\u00e9todo diagonal cl\u00e1ssico (refer\u00eancia, sem passes do motor)",
+      "status": "nao_suportado",
+      "reason": "compara\u00e7\u00f5es (\u00e1rvores/KNN) n\u00e3o suportadas pelo motor CKKS",
+      "finished_at": "2026-11-19T11:22:21"
+    },
+    {
+      "scenario": "tree/dtree_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "dtree",
+        "max_depth": 5
+      },
+      "description": "\u00c1rvore de decis\u00e3o, profundidade 5",
+      "approach": "fheopt",
+      "approach_description": "CKKS, motor fheopt com os passes atuais (layout replicado + rotate-and-sum)",
+      "status": "nao_suportado",
+      "reason": "compara\u00e7\u00f5es (\u00e1rvores/KNN) n\u00e3o suportadas pelo motor CKKS",
+      "finished_at": "2026-11-19T11:22:21"
+    },
+    {
+      "scenario": "tree/rf_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "rf",
+        "n_estimators": 20,
+        "max_depth": 4
+      },
+      "description": "Random forest, 20 \u00e1rvores, profundidade 4",
+      "approach": "concrete_ml",
+      "approach_description": "Concrete ML, modelos prontos com os padr\u00f5es da biblioteca (NN: NeuralNetClassifier com QAT)",
+      "status": "ok",
+      "wall_s": 38.478758916957304,
+      "acc_clear": 0.9649122807017544,
+      "acc_clear_mode": "quantizado (fhe=disable)",
+      "acc_fhe": 0.9649122807017544,
+      "acc_fhe_mode": "simula\u00e7\u00e3o FHE (fhe=simulate)",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "simula\u00e7\u00e3o",
+      "lat_mean_s": 5.103836208628491,
+      "lat_std_s": 0.038630443762688656,
+      "lat_samples_s": [
+        5.069543292047456,
+        5.0714458340080455,
+        5.125409041997045,
+        5.0830696671037,
+        5.169713207986206
+      ],
+      "n_lat": 5,
+      "train_s": 0.09619320800993592,
+      "compile_s": 0.7081614580238238,
+      "keygen_s": 0.9876213340321556,
+      "stats": {
+        "pbs": 2180,
+        "complexity": 122839790860.0,
+        "max_bit_width": 8,
+        "bsk_MB": 799.859375,
+        "ksk_MB": 110.12109375
+      },
+      "config": "{'bootstrap': True, 'ccp_alpha': 0.0, 'class_weight': None, 'criterion': 'gini', 'max_depth': 4, 'max_features': 'sqrt', 'max_leaf_nodes': None, 'max_samples': None, 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0, 'monotonic_cst': None, 'n_bits': {'op_inputs': 6, 'op_leaves': 6}, 'n_estimators': 20, 'n_jobs': None, 'oob_score': False, 'random_state': 0, 'verbose': 0, 'warm_start': False}",
+      "finished_at": "2026-11-19T11:23:00"
+    },
+    {
+      "scenario": "tree/rf_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "rf",
+        "n_estimators": 20,
+        "max_depth": 4
+      },
+      "description": "Random forest, 20 \u00e1rvores, profundidade 4",
+      "approach": "concrete_ml_ptq",
+      "approach_description": "Concrete ML, MLP PyTorch com PTQ 6 bits + arredondamento aproximado + global_p_error=0,1 (melhor configura\u00e7\u00e3o do experimento 04)",
+      "status": "nao_suportado",
+      "reason": "apenas redes neurais",
+      "finished_at": "2026-11-19T11:23:00"
+    },
+    {
+      "scenario": "tree/rf_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "rf",
+        "n_estimators": 20,
+        "max_depth": 4
+      },
+      "description": "Random forest, 20 \u00e1rvores, profundidade 4",
+      "approach": "fheopt_diagonal",
+      "approach_description": "CKKS, m\u00e9todo diagonal cl\u00e1ssico (refer\u00eancia, sem passes do motor)",
+      "status": "nao_suportado",
+      "reason": "compara\u00e7\u00f5es (\u00e1rvores/KNN) n\u00e3o suportadas pelo motor CKKS",
+      "finished_at": "2026-11-19T11:23:00"
+    },
+    {
+      "scenario": "tree/rf_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "rf",
+        "n_estimators": 20,
+        "max_depth": 4
+      },
+      "description": "Random forest, 20 \u00e1rvores, profundidade 4",
+      "approach": "fheopt",
+      "approach_description": "CKKS, motor fheopt com os passes atuais (layout replicado + rotate-and-sum)",
+      "status": "nao_suportado",
+      "reason": "compara\u00e7\u00f5es (\u00e1rvores/KNN) n\u00e3o suportadas pelo motor CKKS",
+      "finished_at": "2026-11-19T11:23:00"
+    },
+    {
+      "scenario": "tree/xgb_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "xgb",
+        "n_estimators": 20,
+        "max_depth": 3
+      },
+      "description": "XGBoost, 20 \u00e1rvores, profundidade 3",
+      "approach": "concrete_ml",
+      "approach_description": "Concrete ML, modelos prontos com os padr\u00f5es da biblioteca (NN: NeuralNetClassifier com QAT)",
+      "status": "ok",
+      "wall_s": 23.517620000056922,
+      "acc_clear": 0.956140350877193,
+      "acc_clear_mode": "quantizado (fhe=disable)",
+      "acc_fhe": 0.956140350877193,
+      "acc_fhe_mode": "simula\u00e7\u00e3o FHE (fhe=simulate)",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "simula\u00e7\u00e3o",
+      "lat_mean_s": 2.767252174834721,
+      "lat_std_s": 0.13564570342541626,
+      "lat_samples_s": [
+        2.508205291000195,
+        2.7583019580924883,
+        2.858383125043474,
+        2.876514583011158,
+        2.834855917026289
+      ],
+      "n_lat": 5,
+      "train_s": 0.09380141703877598,
+      "compile_s": 0.7782417079433799,
+      "keygen_s": 0.7268687499454245,
+      "stats": {
+        "pbs": 1280,
+        "complexity": 65437534160.0,
+        "max_bit_width": 8,
+        "bsk_MB": 852.84765625,
+        "ksk_MB": 85.078125
+      },
+      "config": "{'base_score': None, 'booster': None, 'callbacks': None, 'colsample_bylevel': None, 'colsample_bynode': None, 'colsample_bytree': None, 'early_stopping_rounds': None, 'enable_categorical': False, 'eval_metric': None, 'gamma': None, 'gpu_id': None, 'grow_policy': None, 'importance_type': None, 'interaction_constraints': None, 'learning_rate': None, 'max_bin': None, 'max_cat_to_onehot': None, 'max_delta_step': None, 'max_depth': 3, 'max_leaves': None, 'min_child_weight': None, 'missing': nan, 'mon",
+      "finished_at": "2026-11-19T11:23:23"
+    },
+    {
+      "scenario": "tree/xgb_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "xgb",
+        "n_estimators": 20,
+        "max_depth": 3
+      },
+      "description": "XGBoost, 20 \u00e1rvores, profundidade 3",
+      "approach": "concrete_ml_ptq",
+      "approach_description": "Concrete ML, MLP PyTorch com PTQ 6 bits + arredondamento aproximado + global_p_error=0,1 (melhor configura\u00e7\u00e3o do experimento 04)",
+      "status": "nao_suportado",
+      "reason": "apenas redes neurais",
+      "finished_at": "2026-11-19T11:23:23"
+    },
+    {
+      "scenario": "tree/xgb_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "xgb",
+        "n_estimators": 20,
+        "max_depth": 3
+      },
+      "description": "XGBoost, 20 \u00e1rvores, profundidade 3",
+      "approach": "fheopt_diagonal",
+      "approach_description": "CKKS, m\u00e9todo diagonal cl\u00e1ssico (refer\u00eancia, sem passes do motor)",
+      "status": "nao_suportado",
+      "reason": "compara\u00e7\u00f5es (\u00e1rvores/KNN) n\u00e3o suportadas pelo motor CKKS",
+      "finished_at": "2026-11-19T11:23:23"
+    },
+    {
+      "scenario": "tree/xgb_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "xgb",
+        "n_estimators": 20,
+        "max_depth": 3
+      },
+      "description": "XGBoost, 20 \u00e1rvores, profundidade 3",
+      "approach": "fheopt",
+      "approach_description": "CKKS, motor fheopt com os passes atuais (layout replicado + rotate-and-sum)",
+      "status": "nao_suportado",
+      "reason": "compara\u00e7\u00f5es (\u00e1rvores/KNN) n\u00e3o suportadas pelo motor CKKS",
+      "finished_at": "2026-11-19T11:23:23"
+    },
+    {
+      "scenario": "nn/mlp_digits_32x2",
+      "family": "nn",
+      "dataset": "digits",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          32,
+          32
+        ]
+      },
+      "description": "MLP 64\u219232\u219232\u219210 (modelo de refer\u00eancia da pesquisa)",
+      "approach": "concrete_ml",
+      "approach_description": "Concrete ML, modelos prontos com os padr\u00f5es da biblioteca (NN: NeuralNetClassifier com QAT)",
+      "status": "ok",
+      "wall_s": 32.4474412080599,
+      "acc_clear": 0.9361111111111111,
+      "acc_clear_mode": "quantizado (fhe=disable)",
+      "acc_fhe": 0.9361111111111111,
+      "acc_fhe_mode": "simula\u00e7\u00e3o FHE (fhe=simulate)",
+      "n_acc": 360,
+      "fidelity": 1.0,
+      "fidelity_ref": "simula\u00e7\u00e3o",
+      "lat_mean_s": 2.4126963498070837,
+      "lat_std_s": 0.05674355224891549,
+      "lat_samples_s": [
+        2.326223290991038,
+        2.458865417051129,
+        2.4882218330167234,
+        2.3859859999502078,
+        2.4041852080263197
+      ],
+      "n_lat": 5,
+      "train_s": 3.4255541659658775,
+      "compile_s": 1.2206035410054028,
+      "keygen_s": 3.1458613749127835,
+      "stats": {
+        "pbs": 224,
+        "complexity": 50167118368.0,
+        "max_bit_width": 9,
+        "bsk_MB": 648.984375,
+        "ksk_MB": 260.0625
+      },
+      "config": "{'sklearn_model__module': <class 'concrete.ml.sklearn.qnn_module.SparseQuantNeuralNetwork'>, 'sklearn_model__criterion': <class 'torch.nn.modules.loss.CrossEntropyLoss'>, 'sklearn_model__optimizer': <class 'torch.optim.adam.Adam'>, 'sklearn_model__lr': 0.01, 'sklearn_model__max_epochs': 100, 'sklearn_model__batch_size': 128, 'sklearn_model__iterator_train': <class 'torch.utils.data.dataloader.DataLoader'>, 'sklearn_model__iterator_valid': <class 'torch.utils.data.dataloader.DataLoader'>, 'sklear",
+      "finished_at": "2026-11-19T11:23:56"
+    },
+    {
+      "scenario": "nn/mlp_digits_32x2",
+      "family": "nn",
+      "dataset": "digits",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          32,
+          32
+        ]
+      },
+      "description": "MLP 64\u219232\u219232\u219210 (modelo de refer\u00eancia da pesquisa)",
+      "approach": "concrete_ml_ptq",
+      "approach_description": "Concrete ML, MLP PyTorch com PTQ 6 bits + arredondamento aproximado + global_p_error=0,1 (melhor configura\u00e7\u00e3o do experimento 04)",
+      "status": "ok",
+      "wall_s": 22.387189083034173,
+      "acc_float": 0.9666666666666667,
+      "acc_clear": 0.95,
+      "acc_clear_mode": "quantizado (fhe=disable)",
+      "acc_fhe": 0.9388888888888889,
+      "acc_fhe_mode": "simula\u00e7\u00e3o FHE (fhe=simulate)",
+      "n_acc": 360,
+      "fidelity": 1.0,
+      "fidelity_ref": "simula\u00e7\u00e3o",
+      "lat_mean_s": 1.3197524501942097,
+      "lat_std_s": 0.058019436304560204,
+      "lat_samples_s": [
+        1.2160162919899449,
+        1.3299233339494094,
+        1.3930851670447737,
+        1.3437300419900566,
+        1.3160074159968644
+      ],
+      "n_lat": 5,
+      "train_s": 0.5146080419654027,
+      "compile_s": 0.8847509579500183,
+      "keygen_s": 1.5953144159866497,
+      "stats": {
+        "pbs": 64,
+        "complexity": 27187688000.0,
+        "max_bit_width": 14,
+        "bsk_MB": 308.625,
+        "ksk_MB": 128.75
+      },
+      "finished_at": "2026-11-19T11:24:18"
+    },
+    {
+      "scenario": "nn/mlp_digits_32x2",
+      "family": "nn",
+      "dataset": "digits",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          32,
+          32
+        ]
+      },
+      "description": "MLP 64\u219232\u219232\u219210 (modelo de refer\u00eancia da pesquisa)",
+      "approach": "fheopt_diagonal",
+      "approach_description": "CKKS, m\u00e9todo diagonal cl\u00e1ssico (refer\u00eancia, sem passes do motor)",
+      "status": "ok",
+      "wall_s": 300.3409351670416,
+      "acc_clear": 0.9611111111111111,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9611111111111111,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 360,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 9.801637133932672e-06,
+      "lat_mean_s": 0.8157663500402123,
+      "lat_std_s": 0.013501819111997847,
+      "lat_samples_s": [
+        0.8132265420863405,
+        0.8040458750911057,
+        0.7995651250239462,
+        0.8355382500449196,
+        0.8264559579547495
+      ],
+      "n_lat": 5,
+      "train_s": 1.1865907920291647,
+      "compile_s": 0.013414834043942392,
+      "keygen_s": 0.373038416961208,
+      "encode_s": 0.06074254109989852,
+      "stats": {
+        "plan": "diagonal",
+        "depth": 9,
+        "rotations_per_inference": 81,
+        "distinct_rotation_keys": 33,
+        "ops": {
+          "mul_pt": 82,
+          "rot": 81,
+          "add": 81,
+          "add_pt": 3,
+          "mul_scalar": 2,
+          "add_scalar": 4,
+          "mul_ct": 2
+        },
+        "slots": 128,
+        "ring_dim": 32768,
+        "rot_keys": 33
+      },
+      "finished_at": "2026-11-19T11:29:19"
+    },
+    {
+      "scenario": "nn/mlp_digits_32x2",
+      "family": "nn",
+      "dataset": "digits",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          32,
+          32
+        ]
+      },
+      "description": "MLP 64\u219232\u219232\u219210 (modelo de refer\u00eancia da pesquisa)",
+      "approach": "fheopt",
+      "approach_description": "CKKS, motor fheopt com os passes atuais (layout replicado + rotate-and-sum)",
+      "status": "ok",
+      "wall_s": 66.72695466689765,
+      "acc_clear": 0.9611111111111111,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9611111111111111,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 360,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 6.897039929754101e-05,
+      "lat_mean_s": 0.17067379201762378,
+      "lat_std_s": 0.0009232203890948009,
+      "lat_samples_s": [
+        0.17157441703602672,
+        0.1689590000314638,
+        0.17053466697689146,
+        0.17101570894010365,
+        0.17128516710363328
+      ],
+      "n_lat": 5,
+      "train_s": 1.5805672910064459,
+      "compile_s": 0.008107749978080392,
+      "keygen_s": 0.22867829201277345,
+      "encode_s": 0.009875749936327338,
+      "stats": {
+        "plan": "replicated",
+        "depth": 7,
+        "rotations_per_inference": 25,
+        "distinct_rotation_keys": 20,
+        "ops": {
+          "mul_pt": 5,
+          "rot": 25,
+          "add": 25,
+          "add_pt": 7,
+          "mul_ct": 2
+        },
+        "slots": 2048,
+        "ring_dim": 32768,
+        "rot_keys": 20
+      },
+      "finished_at": "2026-11-19T11:30:25"
+    },
+    {
+      "scenario": "nn/mlp_digits_64x2",
+      "family": "nn",
+      "dataset": "digits",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          64,
+          64
+        ]
+      },
+      "description": "MLP 64\u219264\u219264\u219210 (mais largo)",
+      "approach": "concrete_ml",
+      "approach_description": "Concrete ML, modelos prontos com os padr\u00f5es da biblioteca (NN: NeuralNetClassifier com QAT)",
+      "status": "ok",
+      "wall_s": 46.031079457956366,
+      "acc_clear": 0.9416666666666667,
+      "acc_clear_mode": "quantizado (fhe=disable)",
+      "acc_fhe": 0.9416666666666667,
+      "acc_fhe_mode": "simula\u00e7\u00e3o FHE (fhe=simulate)",
+      "n_acc": 360,
+      "fidelity": 1.0,
+      "fidelity_ref": "simula\u00e7\u00e3o",
+      "lat_mean_s": 4.640144958626479,
+      "lat_std_s": 0.051330352658049444,
+      "lat_samples_s": [
+        4.613453958998434,
+        4.624141625012271,
+        4.566446334007196,
+        4.697916125063784,
+        4.698766750050709
+      ],
+      "n_lat": 5,
+      "train_s": 3.370068792020902,
+      "compile_s": 1.3820861249696463,
+      "keygen_s": 3.1928964590188116,
+      "stats": {
+        "pbs": 448,
+        "complexity": 100309824896.0,
+        "max_bit_width": 10,
+        "bsk_MB": 648.59375,
+        "ksk_MB": 260.015625
+      },
+      "config": "{'sklearn_model__module': <class 'concrete.ml.sklearn.qnn_module.SparseQuantNeuralNetwork'>, 'sklearn_model__criterion': <class 'torch.nn.modules.loss.CrossEntropyLoss'>, 'sklearn_model__optimizer': <class 'torch.optim.adam.Adam'>, 'sklearn_model__lr': 0.01, 'sklearn_model__max_epochs': 100, 'sklearn_model__batch_size': 128, 'sklearn_model__iterator_train': <class 'torch.utils.data.dataloader.DataLoader'>, 'sklearn_model__iterator_valid': <class 'torch.utils.data.dataloader.DataLoader'>, 'sklear",
+      "finished_at": "2026-11-19T11:31:12"
+    },
+    {
+      "scenario": "nn/mlp_digits_64x2",
+      "family": "nn",
+      "dataset": "digits",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          64,
+          64
+        ]
+      },
+      "description": "MLP 64\u219264\u219264\u219210 (mais largo)",
+      "approach": "concrete_ml_ptq",
+      "approach_description": "Concrete ML, MLP PyTorch com PTQ 6 bits + arredondamento aproximado + global_p_error=0,1 (melhor configura\u00e7\u00e3o do experimento 04)",
+      "status": "ok",
+      "wall_s": 37.4014083329821,
+      "acc_float": 0.9583333333333334,
+      "acc_clear": 0.95,
+      "acc_clear_mode": "quantizado (fhe=disable)",
+      "acc_fhe": 0.9583333333333334,
+      "acc_fhe_mode": "simula\u00e7\u00e3o FHE (fhe=simulate)",
+      "n_acc": 360,
+      "fidelity": 1.0,
+      "fidelity_ref": "simula\u00e7\u00e3o",
+      "lat_mean_s": 3.2153358752140777,
+      "lat_std_s": 0.06003450634164167,
+      "lat_samples_s": [
+        3.228997249971144,
+        3.1660302920499817,
+        3.1999763750936836,
+        3.324103666935116,
+        3.1575717920204625
+      ],
+      "n_lat": 5,
+      "train_s": 0.5114121659426019,
+      "compile_s": 0.9184520000126213,
+      "keygen_s": 1.9370055830804631,
+      "stats": {
+        "pbs": 128,
+        "complexity": 67892568320.0,
+        "max_bit_width": 15,
+        "bsk_MB": 415.0,
+        "ksk_MB": 129.84375
+      },
+      "finished_at": "2026-11-19T11:31:49"
+    },
+    {
+      "scenario": "nn/mlp_digits_64x2",
+      "family": "nn",
+      "dataset": "digits",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          64,
+          64
+        ]
+      },
+      "description": "MLP 64\u219264\u219264\u219210 (mais largo)",
+      "approach": "fheopt_diagonal",
+      "approach_description": "CKKS, m\u00e9todo diagonal cl\u00e1ssico (refer\u00eancia, sem passes do motor)",
+      "status": "ok",
+      "wall_s": 548.6246104999445,
+      "acc_clear": 0.9416666666666667,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9416666666666667,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 360,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 1.7654892872087657e-06,
+      "lat_mean_s": 1.4803955750307067,
+      "lat_std_s": 0.006284023209811283,
+      "lat_samples_s": [
+        1.483641125028953,
+        1.480703708017245,
+        1.4900477500632405,
+        1.4719962090021,
+        1.4755890830419958
+      ],
+      "n_lat": 5,
+      "train_s": 1.2105176249751821,
+      "compile_s": 0.02394329197704792,
+      "keygen_s": 0.7162736669415608,
+      "encode_s": 0.11270858300849795,
+      "stats": {
+        "plan": "diagonal",
+        "depth": 9,
+        "rotations_per_inference": 145,
+        "distinct_rotation_keys": 64,
+        "ops": {
+          "mul_pt": 146,
+          "rot": 145,
+          "add": 145,
+          "add_pt": 3,
+          "mul_scalar": 2,
+          "add_scalar": 4,
+          "mul_ct": 2
+        },
+        "slots": 128,
+        "ring_dim": 32768,
+        "rot_keys": 64
+      },
+      "finished_at": "2026-11-19T11:40:58"
+    },
+    {
+      "scenario": "nn/mlp_digits_64x2",
+      "family": "nn",
+      "dataset": "digits",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          64,
+          64
+        ]
+      },
+      "description": "MLP 64\u219264\u219264\u219210 (mais largo)",
+      "approach": "fheopt",
+      "approach_description": "CKKS, motor fheopt com os passes atuais (layout replicado + rotate-and-sum)",
+      "status": "ok",
+      "wall_s": 69.3886276249541,
+      "acc_clear": 0.9416666666666667,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9416666666666667,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 360,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 0.0001207910154334968,
+      "lat_mean_s": 0.1801532420096919,
+      "lat_std_s": 0.0014979494754080737,
+      "lat_samples_s": [
+        0.18286474992055446,
+        0.17841966706328094,
+        0.18012345908209682,
+        0.17922566691413522,
+        0.18013266706839204
+      ],
+      "n_lat": 5,
+      "train_s": 1.5926894169533625,
+      "compile_s": 0.013427415979094803,
+      "keygen_s": 0.2289663329720497,
+      "encode_s": 0.011621457990258932,
+      "stats": {
+        "plan": "replicated",
+        "depth": 7,
+        "rotations_per_inference": 28,
+        "distinct_rotation_keys": 22,
+        "ops": {
+          "mul_pt": 5,
+          "rot": 28,
+          "add": 28,
+          "add_pt": 7,
+          "mul_ct": 2
+        },
+        "slots": 4096,
+        "ring_dim": 32768,
+        "rot_keys": 22
+      },
+      "finished_at": "2026-11-19T11:42:07"
+    },
+    {
+      "scenario": "nn/mlp_cancer_16x2",
+      "family": "nn",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          16,
+          16
+        ]
+      },
+      "description": "MLP 30\u219216\u219216\u21922",
+      "approach": "concrete_ml",
+      "approach_description": "Concrete ML, modelos prontos com os padr\u00f5es da biblioteca (NN: NeuralNetClassifier com QAT)",
+      "status": "ok",
+      "wall_s": 16.17941629095003,
+      "acc_clear": 0.9649122807017544,
+      "acc_clear_mode": "quantizado (fhe=disable)",
+      "acc_fhe": 0.9649122807017544,
+      "acc_fhe_mode": "simula\u00e7\u00e3o FHE (fhe=simulate)",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "simula\u00e7\u00e3o",
+      "lat_mean_s": 0.691934791393578,
+      "lat_std_s": 0.01980184947617318,
+      "lat_samples_s": [
+        0.7020908329868689,
+        0.659678665921092,
+        0.6873277080012485,
+        0.690471125068143,
+        0.7201056249905378
+      ],
+      "n_lat": 5,
+      "train_s": 1.6850454580271617,
+      "compile_s": 0.8731589170638472,
+      "keygen_s": 1.9562612499576062,
+      "stats": {
+        "pbs": 144,
+        "complexity": 12486220256.0,
+        "max_bit_width": 9,
+        "bsk_MB": 525.9375,
+        "ksk_MB": 250.828125
+      },
+      "config": "{'sklearn_model__module': <class 'concrete.ml.sklearn.qnn_module.SparseQuantNeuralNetwork'>, 'sklearn_model__criterion': <class 'torch.nn.modules.loss.CrossEntropyLoss'>, 'sklearn_model__optimizer': <class 'torch.optim.adam.Adam'>, 'sklearn_model__lr': 0.01, 'sklearn_model__max_epochs': 100, 'sklearn_model__batch_size': 128, 'sklearn_model__iterator_train': <class 'torch.utils.data.dataloader.DataLoader'>, 'sklearn_model__iterator_valid': <class 'torch.utils.data.dataloader.DataLoader'>, 'sklear",
+      "finished_at": "2026-11-19T11:42:23"
+    },
+    {
+      "scenario": "nn/mlp_cancer_16x2",
+      "family": "nn",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          16,
+          16
+        ]
+      },
+      "description": "MLP 30\u219216\u219216\u21922",
+      "approach": "concrete_ml_ptq",
+      "approach_description": "Concrete ML, MLP PyTorch com PTQ 6 bits + arredondamento aproximado + global_p_error=0,1 (melhor configura\u00e7\u00e3o do experimento 04)",
+      "status": "ok",
+      "wall_s": 14.5706276249839,
+      "acc_float": 0.9736842105263158,
+      "acc_clear": 0.956140350877193,
+      "acc_clear_mode": "quantizado (fhe=disable)",
+      "acc_fhe": 0.9736842105263158,
+      "acc_fhe_mode": "simula\u00e7\u00e3o FHE (fhe=simulate)",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "simula\u00e7\u00e3o",
+      "lat_mean_s": 0.8859647168079391,
+      "lat_std_s": 0.16565942092244915,
+      "lat_samples_s": [
+        0.5765841669635847,
+        1.0615370000014082,
+        0.9865571249974892,
+        0.9037533750524744,
+        0.9013919170247391
+      ],
+      "n_lat": 5,
+      "train_s": 0.46439983299933374,
+      "compile_s": 0.4774937080219388,
+      "keygen_s": 1.9407135830260813,
+      "stats": {
+        "pbs": 32,
+        "complexity": 16686881280.0,
+        "max_bit_width": 15,
+        "bsk_MB": 408.0,
+        "ksk_MB": 127.65625
+      },
+      "finished_at": "2026-11-19T11:42:38"
+    },
+    {
+      "scenario": "nn/mlp_cancer_16x2",
+      "family": "nn",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          16,
+          16
+        ]
+      },
+      "description": "MLP 30\u219216\u219216\u21922",
+      "approach": "fheopt_diagonal",
+      "approach_description": "CKKS, m\u00e9todo diagonal cl\u00e1ssico (refer\u00eancia, sem passes do motor)",
+      "status": "ok",
+      "wall_s": 51.59049445902929,
+      "acc_clear": 0.9649122807017544,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9649122807017544,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 4.4749367589247413e-07,
+      "lat_mean_s": 0.40893844156526027,
+      "lat_std_s": 0.007004398665691028,
+      "lat_samples_s": [
+        0.4197796250227839,
+        0.40114912495482713,
+        0.4067832080181688,
+        0.41406041593290865,
+        0.402919833897613
+      ],
+      "n_lat": 5,
+      "train_s": 1.1368673329707235,
+      "compile_s": 0.006433124886825681,
+      "keygen_s": 0.2593719579745084,
+      "encode_s": 0.02695287496317178,
+      "stats": {
+        "plan": "diagonal",
+        "depth": 9,
+        "rotations_per_inference": 37,
+        "distinct_rotation_keys": 17,
+        "ops": {
+          "mul_pt": 36,
+          "rot": 37,
+          "add": 37,
+          "add_pt": 3,
+          "mul_scalar": 2,
+          "add_scalar": 4,
+          "mul_ct": 2
+        },
+        "slots": 64,
+        "ring_dim": 32768,
+        "rot_keys": 17
+      },
+      "finished_at": "2026-11-19T11:43:29"
+    },
+    {
+      "scenario": "nn/mlp_cancer_16x2",
+      "family": "nn",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          16,
+          16
+        ]
+      },
+      "description": "MLP 30\u219216\u219216\u21922",
+      "approach": "fheopt",
+      "approach_description": "CKKS, motor fheopt com os passes atuais (layout replicado + rotate-and-sum)",
+      "status": "ok",
+      "wall_s": 19.63093145901803,
+      "acc_clear": 0.9649122807017544,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9649122807017544,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 4.457041995920008e-06,
+      "lat_mean_s": 0.1416014582151547,
+      "lat_std_s": 0.002293973664304159,
+      "lat_samples_s": [
+        0.1432195829693228,
+        0.14506162505131215,
+        0.14038987492676824,
+        0.1408464170526713,
+        0.13848979107569903
+      ],
+      "n_lat": 5,
+      "train_s": 1.1259672089945525,
+      "compile_s": 0.004149958025664091,
+      "keygen_s": 0.1748669589869678,
+      "encode_s": 0.008243666030466557,
+      "stats": {
+        "plan": "replicated",
+        "depth": 7,
+        "rotations_per_inference": 18,
+        "distinct_rotation_keys": 14,
+        "ops": {
+          "mul_pt": 5,
+          "rot": 18,
+          "add": 18,
+          "add_pt": 7,
+          "mul_ct": 2
+        },
+        "slots": 512,
+        "ring_dim": 32768,
+        "rot_keys": 14
+      },
+      "finished_at": "2026-11-19T11:43:49"
+    },
+    {
+      "scenario": "knn/knn_cancer",
+      "family": "knn",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "knn",
+        "k": 3,
+        "n_train": 100
+      },
+      "description": "KNN k=3, 100 pontos de treino (custo cresce com o tamanho do treino)",
+      "approach": "concrete_ml",
+      "approach_description": "Concrete ML, modelos prontos com os padr\u00f5es da biblioteca (NN: NeuralNetClassifier com QAT)",
+      "status": "erro",
+      "reason": "fase run: RuntimeError: NoParametersFound",
+      "finished_at": "2026-11-19T11:44:03"
+    },
+    {
+      "scenario": "knn/knn_cancer",
+      "family": "knn",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "knn",
+        "k": 3,
+        "n_train": 100
+      },
+      "description": "KNN k=3, 100 pontos de treino (custo cresce com o tamanho do treino)",
+      "approach": "concrete_ml_ptq",
+      "approach_description": "Concrete ML, MLP PyTorch com PTQ 6 bits + arredondamento aproximado + global_p_error=0,1 (melhor configura\u00e7\u00e3o do experimento 04)",
+      "status": "nao_suportado",
+      "reason": "apenas redes neurais",
+      "finished_at": "2026-11-19T11:44:03"
+    },
+    {
+      "scenario": "knn/knn_cancer",
+      "family": "knn",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "knn",
+        "k": 3,
+        "n_train": 100
+      },
+      "description": "KNN k=3, 100 pontos de treino (custo cresce com o tamanho do treino)",
+      "approach": "fheopt_diagonal",
+      "approach_description": "CKKS, m\u00e9todo diagonal cl\u00e1ssico (refer\u00eancia, sem passes do motor)",
+      "status": "nao_suportado",
+      "reason": "compara\u00e7\u00f5es (\u00e1rvores/KNN) n\u00e3o suportadas pelo motor CKKS",
+      "finished_at": "2026-11-19T11:44:03"
+    },
+    {
+      "scenario": "knn/knn_cancer",
+      "family": "knn",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "knn",
+        "k": 3,
+        "n_train": 100
+      },
+      "description": "KNN k=3, 100 pontos de treino (custo cresce com o tamanho do treino)",
+      "approach": "fheopt",
+      "approach_description": "CKKS, motor fheopt com os passes atuais (layout replicado + rotate-and-sum)",
+      "status": "nao_suportado",
+      "reason": "compara\u00e7\u00f5es (\u00e1rvores/KNN) n\u00e3o suportadas pelo motor CKKS",
+      "finished_at": "2026-11-19T11:44:03"
+    },
+    {
+      "scenario": "linear/logreg_cancer",
+      "family": "linear",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "logreg"
+      },
+      "description": "Regress\u00e3o log\u00edstica bin\u00e1ria, 30 atributos",
+      "approach": "fheopt_vazao",
+      "approach_description": "CKKS, motor em modo vaz\u00e3o: 1 amostra/slot, sem rota\u00e7\u00f5es (custo amortizado por amostra)",
+      "status": "ok",
+      "wall_s": 1.9265546660171822,
+      "acc_clear": 0.9824561403508771,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9824561403508771,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 5.562660092550686e-07,
+      "lat_kind": "amortizada",
+      "batch_size": 8192,
+      "batch_latency_s": 0.1675864167045802,
+      "batch_parts_s": {
+        "encrypt_s": 0.1214903057164823,
+        "eval_s": 0.0370326666549469,
+        "decrypt_s": 0.009063444333150983,
+        "total_s": 0.1675864167045802
+      },
+      "lat_mean_s": 2.0457326257883324e-05,
+      "lat_std_s": 1.3664595248721518e-07,
+      "lat_samples_s": [
+        2.0623336794756142e-05,
+        2.0459986330934044e-05,
+        2.0288655647959786e-05
+      ],
+      "n_lat": 3,
+      "train_s": 0.05246704106684774,
+      "compile_s": 0.040994249982759356,
+      "keygen_s": 0.008564707939513028,
+      "stats": {
+        "layout": "vaz\u00e3o (1 amostra/slot)",
+        "depth": 1,
+        "ring_dim": 16384,
+        "slots": 8192,
+        "rotations_per_inference": 0,
+        "rot_keys": 0,
+        "scalar_mults_per_batch": 60,
+        "ct_ct_mults_per_batch": 0,
+        "input_ciphertexts": 30
+      },
+      "finished_at": "2026-11-19T11:56:10"
+    },
+    {
+      "scenario": "linear/logreg_cancer",
+      "family": "linear",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "logreg"
+      },
+      "description": "Regress\u00e3o log\u00edstica bin\u00e1ria, 30 atributos",
+      "approach": "tfhe_auto",
+      "approach_description": "Concrete ML com otimizador autom\u00e1tico: varre bits e p_error, escolhe na valida\u00e7\u00e3o (\u22641 p.p. de perda) a configura\u00e7\u00e3o de menor custo",
+      "status": "nao_suportado",
+      "reason": "aplicado a \u00e1rvores e KNN",
+      "finished_at": "2026-11-19T11:56:10"
+    },
+    {
+      "scenario": "linear/logreg_digits",
+      "family": "linear",
+      "dataset": "digits",
+      "model": {
+        "kind": "logreg"
+      },
+      "description": "Regress\u00e3o log\u00edstica multiclasse (10), 64 atributos",
+      "approach": "fheopt_vazao",
+      "approach_description": "CKKS, motor em modo vaz\u00e3o: 1 amostra/slot, sem rota\u00e7\u00f5es (custo amortizado por amostra)",
+      "status": "ok",
+      "wall_s": 4.1104303750908,
+      "acc_clear": 0.9638888888888889,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9638888888888889,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 360,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 8.218531903914084e-07,
+      "lat_kind": "amortizada",
+      "batch_size": 8192,
+      "batch_latency_s": 0.7286624719854444,
+      "batch_parts_s": {
+        "encrypt_s": 0.263778444340763,
+        "eval_s": 0.40441438897202414,
+        "decrypt_s": 0.06046963867265731,
+        "total_s": 0.7286624719854444
+      },
+      "lat_mean_s": 8.89480556622857e-05,
+      "lat_std_s": 8.178851042829341e-07,
+      "lat_samples_s": [
+        8.807425939494351e-05,
+        8.872862755993083e-05,
+        9.004128003198275e-05
+      ],
+      "n_lat": 3,
+      "train_s": 0.06350212497636676,
+      "compile_s": 0.0434324590023607,
+      "keygen_s": 0.008051749900914729,
+      "stats": {
+        "layout": "vaz\u00e3o (1 amostra/slot)",
+        "depth": 1,
+        "ring_dim": 16384,
+        "slots": 8192,
+        "rotations_per_inference": 0,
+        "rot_keys": 0,
+        "scalar_mults_per_batch": 640,
+        "ct_ct_mults_per_batch": 0,
+        "input_ciphertexts": 64
+      },
+      "finished_at": "2026-11-19T11:56:14"
+    },
+    {
+      "scenario": "linear/logreg_digits",
+      "family": "linear",
+      "dataset": "digits",
+      "model": {
+        "kind": "logreg"
+      },
+      "description": "Regress\u00e3o log\u00edstica multiclasse (10), 64 atributos",
+      "approach": "tfhe_auto",
+      "approach_description": "Concrete ML com otimizador autom\u00e1tico: varre bits e p_error, escolhe na valida\u00e7\u00e3o (\u22641 p.p. de perda) a configura\u00e7\u00e3o de menor custo",
+      "status": "nao_suportado",
+      "reason": "aplicado a \u00e1rvores e KNN",
+      "finished_at": "2026-11-19T11:56:14"
+    },
+    {
+      "scenario": "linear/linsvc_cancer",
+      "family": "linear",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "linsvc"
+      },
+      "description": "SVM linear bin\u00e1rio, 30 atributos",
+      "approach": "fheopt_vazao",
+      "approach_description": "CKKS, motor em modo vaz\u00e3o: 1 amostra/slot, sem rota\u00e7\u00f5es (custo amortizado por amostra)",
+      "status": "ok",
+      "wall_s": 1.9041183750377968,
+      "acc_clear": 0.9649122807017544,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9649122807017544,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 6.57035216011792e-07,
+      "lat_kind": "amortizada",
+      "batch_size": 8192,
+      "batch_latency_s": 0.16796226368751377,
+      "batch_parts_s": {
+        "encrypt_s": 0.12137979133209835,
+        "eval_s": 0.03745679196435958,
+        "decrypt_s": 0.009125680391055843,
+        "total_s": 0.16796226368751377
+      },
+      "lat_mean_s": 2.0503206016542208e-05,
+      "lat_std_s": 1.0101524905276533e-07,
+      "lat_samples_s": [
+        2.060760498068248e-05,
+        2.0366556768181e-05,
+        2.0535456300763144e-05
+      ],
+      "n_lat": 3,
+      "train_s": 0.0535480419639498,
+      "compile_s": 0.03950533294118941,
+      "keygen_s": 0.008546083932742476,
+      "stats": {
+        "layout": "vaz\u00e3o (1 amostra/slot)",
+        "depth": 1,
+        "ring_dim": 16384,
+        "slots": 8192,
+        "rotations_per_inference": 0,
+        "rot_keys": 0,
+        "scalar_mults_per_batch": 60,
+        "ct_ct_mults_per_batch": 0,
+        "input_ciphertexts": 30
+      },
+      "finished_at": "2026-11-19T11:56:16"
+    },
+    {
+      "scenario": "linear/linsvc_cancer",
+      "family": "linear",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "linsvc"
+      },
+      "description": "SVM linear bin\u00e1rio, 30 atributos",
+      "approach": "tfhe_auto",
+      "approach_description": "Concrete ML com otimizador autom\u00e1tico: varre bits e p_error, escolhe na valida\u00e7\u00e3o (\u22641 p.p. de perda) a configura\u00e7\u00e3o de menor custo",
+      "status": "nao_suportado",
+      "reason": "aplicado a \u00e1rvores e KNN",
+      "finished_at": "2026-11-19T11:56:16"
+    },
+    {
+      "scenario": "tree/dtree_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "dtree",
+        "max_depth": 5
+      },
+      "description": "\u00c1rvore de decis\u00e3o, profundidade 5",
+      "approach": "fheopt_vazao",
+      "approach_description": "CKKS, motor em modo vaz\u00e3o: 1 amostra/slot, sem rota\u00e7\u00f5es (custo amortizado por amostra)",
+      "status": "nao_suportado",
+      "reason": "compara\u00e7\u00f5es (\u00e1rvores/KNN) n\u00e3o suportadas pelo motor CKKS",
+      "finished_at": "2026-11-19T11:56:16"
+    },
+    {
+      "scenario": "tree/dtree_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "dtree",
+        "max_depth": 5
+      },
+      "description": "\u00c1rvore de decis\u00e3o, profundidade 5",
+      "approach": "tfhe_auto",
+      "approach_description": "Concrete ML com otimizador autom\u00e1tico: varre bits e p_error, escolhe na valida\u00e7\u00e3o (\u22641 p.p. de perda) a configura\u00e7\u00e3o de menor custo",
+      "status": "ok",
+      "wall_s": 96.0261574999895,
+      "acc_clear": 0.956140350877193,
+      "acc_clear_mode": "quantizado (fhe=disable)",
+      "acc_fhe": 0.956140350877193,
+      "acc_fhe_mode": "simula\u00e7\u00e3o FHE (fhe=simulate)",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "simula\u00e7\u00e3o",
+      "lat_mean_s": 0.23913789161015303,
+      "lat_std_s": 0.005373593990150767,
+      "lat_samples_s": [
+        0.23068520904053003,
+        0.2455914580496028,
+        0.236111416015774,
+        0.23947199992835522,
+        0.24382937501650304
+      ],
+      "n_lat": 5,
+      "keygen_s": 0.6700983749469742,
+      "search_s": 88.01364991697483,
+      "chosen": {
+        "n_bits": 4,
+        "global_p_error": null,
+        "acc_sel": 0.9714285714285714,
+        "complexity": 3540681094.0,
+        "pbs": 78
+      },
+      "reference": {
+        "n_bits": 6,
+        "global_p_error": null,
+        "acc_sel": 0.9802197802197802,
+        "complexity": 7649807401.0,
+        "pbs": 136
+      },
+      "trials": [
+        {
+          "n_bits": 6,
+          "global_p_error": null,
+          "acc_sel": 0.9802197802197802,
+          "complexity": 7649807401.0,
+          "pbs": 136
+        },
+        {
+          "n_bits": 6,
+          "global_p_error": 0.1,
+          "acc_sel": 0.9736263736263736,
+          "complexity": 5763929482.0,
+          "pbs": 136
+        },
+        {
+          "n_bits": 5,
+          "global_p_error": null,
+          "acc_sel": 0.9758241758241758,
+          "complexity": 6044419918.0,
+          "pbs": 113
+        },
+        {
+          "n_bits": 5,
+          "global_p_error": 0.1,
+          "acc_sel": 0.9758241758241758,
+          "complexity": 4023522397.0,
+          "pbs": 113
+        },
+        {
+          "n_bits": 4,
+          "global_p_error": null,
+          "acc_sel": 0.9714285714285714,
+          "complexity": 3540681094.0,
+          "pbs": 78
+        },
+        {
+          "n_bits": 4,
+          "global_p_error": 0.1,
+          "acc_sel": 0.9692307692307692,
+          "complexity": 2710418451.0,
+          "pbs": 78
+        },
+        {
+          "n_bits": 3,
+          "global_p_error": null,
+          "acc_sel": 0.9648351648351648,
+          "complexity": 2430789801.0,
+          "pbs": 29
+        },
+        {
+          "n_bits": 3,
+          "global_p_error": 0.1,
+          "acc_sel": 0.9604395604395605,
+          "complexity": 1517897839.0,
+          "pbs": 29
+        },
+        {
+          "n_bits": 2,
+          "global_p_error": null,
+          "acc_sel": 0.9208791208791208,
+          "complexity": 1014254103.0,
+          "pbs": 13
+        },
+        {
+          "n_bits": 2,
+          "global_p_error": 0.1,
+          "acc_sel": 0.9032967032967033,
+          "complexity": 572631096.0,
+          "pbs": 13
+        }
+      ],
+      "stats": {
+        "pbs": 78,
+        "complexity": 3540681094.0,
+        "max_bit_width": 6,
+        "bsk_MB": 870.60546875,
+        "ksk_MB": 90.251953125
+      },
+      "finished_at": "2026-11-19T11:57:52"
+    },
+    {
+      "scenario": "tree/rf_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "rf",
+        "n_estimators": 20,
+        "max_depth": 4
+      },
+      "description": "Random forest, 20 \u00e1rvores, profundidade 4",
+      "approach": "fheopt_vazao",
+      "approach_description": "CKKS, motor em modo vaz\u00e3o: 1 amostra/slot, sem rota\u00e7\u00f5es (custo amortizado por amostra)",
+      "status": "nao_suportado",
+      "reason": "compara\u00e7\u00f5es (\u00e1rvores/KNN) n\u00e3o suportadas pelo motor CKKS",
+      "finished_at": "2026-11-19T11:57:52"
+    },
+    {
+      "scenario": "tree/rf_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "rf",
+        "n_estimators": 20,
+        "max_depth": 4
+      },
+      "description": "Random forest, 20 \u00e1rvores, profundidade 4",
+      "approach": "tfhe_auto",
+      "approach_description": "Concrete ML com otimizador autom\u00e1tico: varre bits e p_error, escolhe na valida\u00e7\u00e3o (\u22641 p.p. de perda) a configura\u00e7\u00e3o de menor custo",
+      "status": "ok",
+      "wall_s": 115.25723145797383,
+      "acc_clear": 0.956140350877193,
+      "acc_clear_mode": "quantizado (fhe=disable)",
+      "acc_fhe": 0.956140350877193,
+      "acc_fhe_mode": "simula\u00e7\u00e3o FHE (fhe=simulate)",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "simula\u00e7\u00e3o",
+      "lat_mean_s": 2.7446917166234925,
+      "lat_std_s": 0.06076427121356152,
+      "lat_samples_s": [
+        2.711723249987699,
+        2.8433958750683814,
+        2.726769166998565,
+        2.6652523330412805,
+        2.7763179580215365
+      ],
+      "n_lat": 5,
+      "keygen_s": 0.7308924159733579,
+      "search_s": 91.24535074993037,
+      "chosen": {
+        "n_bits": 4,
+        "global_p_error": 0.1,
+        "acc_sel": 0.9714285714285714,
+        "complexity": 66479736460.0,
+        "pbs": 1840
+      },
+      "reference": {
+        "n_bits": 6,
+        "global_p_error": null,
+        "acc_sel": 0.978021978021978,
+        "complexity": 122839790860.0,
+        "pbs": 2180
+      },
+      "trials": [
+        {
+          "n_bits": 6,
+          "global_p_error": null,
+          "acc_sel": 0.978021978021978,
+          "complexity": 122839790860.0,
+          "pbs": 2180
+        },
+        {
+          "n_bits": 6,
+          "global_p_error": 0.1,
+          "acc_sel": 0.978021978021978,
+          "complexity": 98065117500.0,
+          "pbs": 2180
+        },
+        {
+          "n_bits": 5,
+          "global_p_error": null,
+          "acc_sel": 0.9758241758241758,
+          "complexity": 112343392040.0,
+          "pbs": 2100
+        },
+        {
+          "n_bits": 5,
+          "global_p_error": 0.1,
+          "acc_sel": 0.9758241758241758,
+          "complexity": 85872182560.0,
+          "pbs": 2100
+        },
+        {
+          "n_bits": 4,
+          "global_p_error": null,
+          "acc_sel": 0.9714285714285714,
+          "complexity": 83323930240.0,
+          "pbs": 1840
+        },
+        {
+          "n_bits": 4,
+          "global_p_error": 0.1,
+          "acc_sel": 0.9714285714285714,
+          "complexity": 66479736460.0,
+          "pbs": 1840
+        },
+        {
+          "n_bits": 3,
+          "global_p_error": null,
+          "acc_sel": 0.9560439560439561,
+          "complexity": 38617818780.0,
+          "pbs": 460
+        },
+        {
+          "n_bits": 3,
+          "global_p_error": 0.1,
+          "acc_sel": 0.9560439560439561,
+          "complexity": 25271255360.0,
+          "pbs": 460
+        },
+        {
+          "n_bits": 2,
+          "global_p_error": null,
+          "acc_sel": 0.9076923076923077,
+          "complexity": 26393919780.0,
+          "pbs": 340
+        },
+        {
+          "n_bits": 2,
+          "global_p_error": 0.1,
+          "acc_sel": 0.9076923076923077,
+          "complexity": 17714031180.0,
+          "pbs": 340
+        }
+      ],
+      "stats": {
+        "pbs": 1840,
+        "complexity": 66479736460.0,
+        "max_bit_width": 6,
+        "bsk_MB": 764.68359375,
+        "ksk_MB": 84.234375
+      },
+      "finished_at": "2026-11-19T11:59:47"
+    },
+    {
+      "scenario": "tree/xgb_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "xgb",
+        "n_estimators": 20,
+        "max_depth": 3
+      },
+      "description": "XGBoost, 20 \u00e1rvores, profundidade 3",
+      "approach": "fheopt_vazao",
+      "approach_description": "CKKS, motor em modo vaz\u00e3o: 1 amostra/slot, sem rota\u00e7\u00f5es (custo amortizado por amostra)",
+      "status": "nao_suportado",
+      "reason": "compara\u00e7\u00f5es (\u00e1rvores/KNN) n\u00e3o suportadas pelo motor CKKS",
+      "finished_at": "2026-11-19T11:59:47"
+    },
+    {
+      "scenario": "tree/xgb_cancer",
+      "family": "tree",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "xgb",
+        "n_estimators": 20,
+        "max_depth": 3
+      },
+      "description": "XGBoost, 20 \u00e1rvores, profundidade 3",
+      "approach": "tfhe_auto",
+      "approach_description": "Concrete ML com otimizador autom\u00e1tico: varre bits e p_error, escolhe na valida\u00e7\u00e3o (\u22641 p.p. de perda) a configura\u00e7\u00e3o de menor custo",
+      "status": "ok",
+      "wall_s": 103.88496587506961,
+      "acc_clear": 0.9649122807017544,
+      "acc_clear_mode": "quantizado (fhe=disable)",
+      "acc_fhe": 0.9649122807017544,
+      "acc_fhe_mode": "simula\u00e7\u00e3o FHE (fhe=simulate)",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "simula\u00e7\u00e3o",
+      "lat_mean_s": 1.4136386165861041,
+      "lat_std_s": 0.04964364712590096,
+      "lat_samples_s": [
+        1.3926470830338076,
+        1.436843500006944,
+        1.3524134999606758,
+        1.389044415904209,
+        1.4972445840248838
+      ],
+      "n_lat": 5,
+      "keygen_s": 0.6058070829603821,
+      "search_s": 88.21156162500847,
+      "chosen": {
+        "n_bits": 4,
+        "global_p_error": 0.1,
+        "acc_sel": 0.978021978021978,
+        "complexity": 33602782080.0,
+        "pbs": 1000
+      },
+      "reference": {
+        "n_bits": 6,
+        "global_p_error": null,
+        "acc_sel": 0.9802197802197802,
+        "complexity": 65437534160.0,
+        "pbs": 1280
+      },
+      "trials": [
+        {
+          "n_bits": 6,
+          "global_p_error": null,
+          "acc_sel": 0.9802197802197802,
+          "complexity": 65437534160.0,
+          "pbs": 1280
+        },
+        {
+          "n_bits": 6,
+          "global_p_error": 0.1,
+          "acc_sel": 0.9802197802197802,
+          "complexity": 51050854840.0,
+          "pbs": 1280
+        },
+        {
+          "n_bits": 5,
+          "global_p_error": null,
+          "acc_sel": 0.9758241758241758,
+          "complexity": 49486408420.0,
+          "pbs": 1140
+        },
+        {
+          "n_bits": 5,
+          "global_p_error": 0.1,
+          "acc_sel": 0.9758241758241758,
+          "complexity": 39026743140.0,
+          "pbs": 1140
+        },
+        {
+          "n_bits": 4,
+          "global_p_error": null,
+          "acc_sel": 0.978021978021978,
+          "complexity": 40258771740.0,
+          "pbs": 1000
+        },
+        {
+          "n_bits": 4,
+          "global_p_error": 0.1,
+          "acc_sel": 0.978021978021978,
+          "complexity": 33602782080.0,
+          "pbs": 1000
+        },
+        {
+          "n_bits": 3,
+          "global_p_error": null,
+          "acc_sel": 0.9692307692307692,
+          "complexity": 17863172340.0,
+          "pbs": 260
+        },
+        {
+          "n_bits": 3,
+          "global_p_error": 0.1,
+          "acc_sel": 0.9692307692307692,
+          "complexity": 10778142440.0,
+          "pbs": 260
+        },
+        {
+          "n_bits": 2,
+          "global_p_error": null,
+          "acc_sel": 0.9274725274725275,
+          "complexity": 14187044740.0,
+          "pbs": 260
+        },
+        {
+          "n_bits": 2,
+          "global_p_error": 0.1,
+          "acc_sel": 0.9274725274725275,
+          "complexity": 10100214340.0,
+          "pbs": 260
+        }
+      ],
+      "stats": {
+        "pbs": 1000,
+        "complexity": 33602782080.0,
+        "max_bit_width": 6,
+        "bsk_MB": 922.1875,
+        "ksk_MB": 72.3046875
+      },
+      "finished_at": "2026-11-19T12:01:31"
+    },
+    {
+      "scenario": "nn/mlp_digits_32x2",
+      "family": "nn",
+      "dataset": "digits",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          32,
+          32
+        ]
+      },
+      "description": "MLP 64\u219232\u219232\u219210 (modelo de refer\u00eancia da pesquisa)",
+      "approach": "fheopt_vazao",
+      "approach_description": "CKKS, motor em modo vaz\u00e3o: 1 amostra/slot, sem rota\u00e7\u00f5es (custo amortizado por amostra)",
+      "status": "ok",
+      "wall_s": 15.370918000000529,
+      "acc_clear": 0.9611111111111111,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9611111111111111,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 360,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 0.0003308237055534846,
+      "lat_kind": "amortizada",
+      "batch_size": 8192,
+      "batch_latency_s": 3.218868999974802,
+      "batch_parts_s": {
+        "encrypt_s": 0.3821525836052994,
+        "eval_s": 2.779980221996084,
+        "decrypt_s": 0.05673619437341889,
+        "total_s": 3.218868999974802
+      },
+      "lat_mean_s": 0.0003929283447234866,
+      "lat_std_s": 2.357095547780797e-06,
+      "lat_samples_s": [
+        0.0003920024566639313,
+        0.00039061804199036487,
+        0.0003961645355161636
+      ],
+      "n_lat": 3,
+      "train_s": 1.1536356669384986,
+      "compile_s": 0.05877274996601045,
+      "keygen_s": 0.0164005410624668,
+      "stats": {
+        "layout": "vaz\u00e3o (1 amostra/slot)",
+        "depth": 5,
+        "ring_dim": 16384,
+        "slots": 8192,
+        "rotations_per_inference": 0,
+        "rot_keys": 0,
+        "scalar_mults_per_batch": 3392,
+        "ct_ct_mults_per_batch": 64,
+        "input_ciphertexts": 64
+      },
+      "finished_at": "2026-11-19T12:01:47"
+    },
+    {
+      "scenario": "nn/mlp_digits_32x2",
+      "family": "nn",
+      "dataset": "digits",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          32,
+          32
+        ]
+      },
+      "description": "MLP 64\u219232\u219232\u219210 (modelo de refer\u00eancia da pesquisa)",
+      "approach": "tfhe_auto",
+      "approach_description": "Concrete ML com otimizador autom\u00e1tico: varre bits e p_error, escolhe na valida\u00e7\u00e3o (\u22641 p.p. de perda) a configura\u00e7\u00e3o de menor custo",
+      "status": "nao_suportado",
+      "reason": "aplicado a \u00e1rvores e KNN",
+      "finished_at": "2026-11-19T12:01:47"
+    },
+    {
+      "scenario": "nn/mlp_digits_64x2",
+      "family": "nn",
+      "dataset": "digits",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          64,
+          64
+        ]
+      },
+      "description": "MLP 64\u219264\u219264\u219210 (mais largo)",
+      "approach": "fheopt_vazao",
+      "approach_description": "CKKS, motor em modo vaz\u00e3o: 1 amostra/slot, sem rota\u00e7\u00f5es (custo amortizado por amostra)",
+      "status": "ok",
+      "wall_s": 32.057997999945655,
+      "acc_clear": 0.9416666666666667,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9416666666666667,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 360,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 0.0001039810624661186,
+      "lat_kind": "amortizada",
+      "batch_size": 8192,
+      "batch_latency_s": 7.377267874622096,
+      "batch_parts_s": {
+        "encrypt_s": 0.38193626364227384,
+        "eval_s": 6.936689388627808,
+        "decrypt_s": 0.05864222235201547,
+        "total_s": 7.377267874622096
+      },
+      "lat_mean_s": 0.0009005453948513301,
+      "lat_std_s": 2.6678921900037915e-06,
+      "lat_samples_s": [
+        0.0008968179168675761,
+        0.0009029150034081113,
+        0.0009019032642783031
+      ],
+      "n_lat": 3,
+      "train_s": 1.218496166053228,
+      "compile_s": 0.06127145793288946,
+      "keygen_s": 0.01671141607221216,
+      "stats": {
+        "layout": "vaz\u00e3o (1 amostra/slot)",
+        "depth": 5,
+        "ring_dim": 16384,
+        "slots": 8192,
+        "rotations_per_inference": 0,
+        "rot_keys": 0,
+        "scalar_mults_per_batch": 8832,
+        "ct_ct_mults_per_batch": 128,
+        "input_ciphertexts": 64
+      },
+      "finished_at": "2026-11-19T12:02:19"
+    },
+    {
+      "scenario": "nn/mlp_digits_64x2",
+      "family": "nn",
+      "dataset": "digits",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          64,
+          64
+        ]
+      },
+      "description": "MLP 64\u219264\u219264\u219210 (mais largo)",
+      "approach": "tfhe_auto",
+      "approach_description": "Concrete ML com otimizador autom\u00e1tico: varre bits e p_error, escolhe na valida\u00e7\u00e3o (\u22641 p.p. de perda) a configura\u00e7\u00e3o de menor custo",
+      "status": "nao_suportado",
+      "reason": "aplicado a \u00e1rvores e KNN",
+      "finished_at": "2026-11-19T12:02:19"
+    },
+    {
+      "scenario": "nn/mlp_cancer_16x2",
+      "family": "nn",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          16,
+          16
+        ]
+      },
+      "description": "MLP 30\u219216\u219216\u21922",
+      "approach": "fheopt_vazao",
+      "approach_description": "CKKS, motor em modo vaz\u00e3o: 1 amostra/slot, sem rota\u00e7\u00f5es (custo amortizado por amostra)",
+      "status": "ok",
+      "wall_s": 6.015549417003058,
+      "acc_clear": 0.9649122807017544,
+      "acc_clear_mode": "float64 (mesmo modelo, sem criptografia)",
+      "acc_fhe": 0.9649122807017544,
+      "acc_fhe_mode": "execu\u00e7\u00e3o CKKS real",
+      "n_acc": 114,
+      "fidelity": 1.0,
+      "fidelity_ref": "claro",
+      "max_abs_err_logits": 8.854640736899455e-05,
+      "lat_kind": "amortizada",
+      "batch_size": 8192,
+      "batch_latency_s": 0.881411055335775,
+      "batch_parts_s": {
+        "encrypt_s": 0.18185063870623708,
+        "eval_s": 0.6881201806245372,
+        "decrypt_s": 0.01144023600500077,
+        "total_s": 0.881411055335775
+      },
+      "lat_mean_s": 0.00010759412296579285,
+      "lat_std_s": 9.187324271453209e-07,
+      "lat_samples_s": [
+        0.00010883702087483016,
+        0.00010730055737440125,
+        0.00010664479064814714
+      ],
+      "n_lat": 3,
+      "train_s": 1.1267879579681903,
+      "compile_s": 0.06132487498689443,
+      "keygen_s": 0.017523542046546936,
+      "stats": {
+        "layout": "vaz\u00e3o (1 amostra/slot)",
+        "depth": 5,
+        "ring_dim": 16384,
+        "slots": 8192,
+        "rotations_per_inference": 0,
+        "rot_keys": 0,
+        "scalar_mults_per_batch": 768,
+        "ct_ct_mults_per_batch": 32,
+        "input_ciphertexts": 30
+      },
+      "finished_at": "2026-11-19T12:02:25"
+    },
+    {
+      "scenario": "nn/mlp_cancer_16x2",
+      "family": "nn",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "mlp",
+        "hidden": [
+          16,
+          16
+        ]
+      },
+      "description": "MLP 30\u219216\u219216\u21922",
+      "approach": "tfhe_auto",
+      "approach_description": "Concrete ML com otimizador autom\u00e1tico: varre bits e p_error, escolhe na valida\u00e7\u00e3o (\u22641 p.p. de perda) a configura\u00e7\u00e3o de menor custo",
+      "status": "nao_suportado",
+      "reason": "aplicado a \u00e1rvores e KNN",
+      "finished_at": "2026-11-19T12:02:25"
+    },
+    {
+      "scenario": "knn/knn_cancer",
+      "family": "knn",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "knn",
+        "k": 3,
+        "n_train": 100
+      },
+      "description": "KNN k=3, 100 pontos de treino (custo cresce com o tamanho do treino)",
+      "approach": "fheopt_vazao",
+      "approach_description": "CKKS, motor em modo vaz\u00e3o: 1 amostra/slot, sem rota\u00e7\u00f5es (custo amortizado por amostra)",
+      "status": "nao_suportado",
+      "reason": "compara\u00e7\u00f5es (\u00e1rvores/KNN) n\u00e3o suportadas pelo motor CKKS",
+      "finished_at": "2026-11-19T12:02:25"
+    },
+    {
+      "scenario": "knn/knn_cancer",
+      "family": "knn",
+      "dataset": "breast_cancer",
+      "model": {
+        "kind": "knn",
+        "k": 3,
+        "n_train": 100
+      },
+      "description": "KNN k=3, 100 pontos de treino (custo cresce com o tamanho do treino)",
+      "approach": "tfhe_auto",
+      "approach_description": "Concrete ML com otimizador autom\u00e1tico: varre bits e p_error, escolhe na valida\u00e7\u00e3o (\u22641 p.p. de perda) a configura\u00e7\u00e3o de menor custo",
+      "status": "erro",
+      "reason": "fase run: RuntimeError: nenhuma configura\u00e7\u00e3o compilou (RuntimeError: NoParametersFound)",
+      "finished_at": "2026-11-19T12:03:31"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+# Python 3.12. O OpenFHE (CKKS) não tem wheel para macOS arm64: scripts/build_openfhe.sh.
+# Em macOS com CMake >= 4: CMAKE_POLICY_VERSION_MINIMUM=3.5 pip install -r requirements.txt
+concrete-ml==1.9.0
+concrete-python==2.10.0
+torch==2.3.1
+scikit-learn==1.5.0
+numpy==1.26.4
